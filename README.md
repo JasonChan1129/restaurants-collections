@@ -41,3 +41,11 @@ npm run dev
 -  by clicking the restaurant, users are able to check for more details of it
 
 -  users can search for restaurants based on their names and categories
+
+## Development tools
+
+-  Node.js @ 16.14.2
+-  Express @ 4.17.3
+-  Express-handlebars @ 3.0.0
+-  Bootstrap @ 4.3.1
+-  Font-awesome @ 5.8.1
