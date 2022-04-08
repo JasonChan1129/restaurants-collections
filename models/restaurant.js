@@ -18,7 +18,7 @@ const restaurantSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	loaction: {
+	location: {
 		type: String,
 		required: true,
 	},
@@ -26,7 +26,7 @@ const restaurantSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	url: {
+	googleMap: {
 		type: String,
 		required: true,
 	},
