@@ -4,6 +4,9 @@ const app = express();
 const restaurantList = require('./restaurant.json').results;
 const Restaurant = require('./models/restaurant');
 const mongoose = require('mongoose');
+const req = require('express/lib/request');
+const res = require('express/lib/response');
+const restaurant = require('./models/restaurant');
 const port = 3000;
 require('dotenv').config();
 
@@ -72,6 +75,37 @@ app.get('/restaurants/:id', (req, res) => {
 		.catch(error => console.log(error));
 	// const restaurant = restaurantList.find(restaurant => restaurant.id.toString() === id);
 	// res.render('show', { restaurant: restaurant });
+});
+
+app.get('/restaurants/:id/edit', (req, res) => {
+	const id = req.params.id;
+	return Restaurant.findById(id)
+		.lean()
+		.then(restaurant => {
+			res.render('edit', { restaurant });
+		})
+		.catch(error => console.log(error));
+});
+
+app.post('/restaurants/:id/edit', (req, res) => {
+	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
+		req.body;
+	const id = req.params.id;
+	Restaurant.findById(id)
+		.then(restaurant => {
+			restaurant.name = name;
+			restaurant.nameEng = nameEng;
+			restaurant.category = category;
+			restaurant.image = image;
+			restaurant.location = location;
+			restaurant.phone = phone;
+			restaurant.googleMap = googleMap;
+			restaurant.rating = rating;
+			restaurant.description = description;
+			restaurant.save();
+		})
+		.then(() => res.redirect('/'))
+		.catch(error => console.log(error));
 });
 
 app.listen(port, () => {
