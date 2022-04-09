@@ -11,12 +11,13 @@ const db = mongoose.connection;
 db.on('error', () => console.log('mongoDB error.'));
 
 db.once('open', () => {
+	console.log('mongoDB connected.');
 	restaurantList.forEach(restaurant => {
 		Restaurant.create({
 			name: restaurant.name,
 			nameEng: restaurant['name_en'],
 			category: restaurant.category,
-			image: restaurant.location,
+			image: restaurant.image,
 			location: restaurant.location,
 			phone: restaurant.phone,
 			googleMap: restaurant.google_map,
@@ -24,4 +25,5 @@ db.once('open', () => {
 			description: restaurant.description,
 		});
 	});
+	console.log('done!');
 });
