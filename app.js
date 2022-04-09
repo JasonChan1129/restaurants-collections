@@ -47,7 +47,21 @@ app.get('/restaurants/new', (req, res) => {
 });
 
 app.post('/restaurants/new', (req, res) => {
-	console.log(req.body);
+	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
+		req.body;
+	return Restaurant.create({
+		name: name,
+		nameEng: nameEng,
+		category: category,
+		image: image,
+		location: location,
+		phone: phone,
+		googleMap: googleMap,
+		rating: rating,
+		description: description,
+	})
+		.then(() => res.redirect('/'))
+		.catch(error => console.log(error));
 });
 
 app.get('/restaurants/:id', (req, res) => {
