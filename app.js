@@ -39,10 +39,12 @@ app.get('/', (req, res) => {
 app.get('/search', (req, res) => {
 	const keyword = req.query.keyword.trim();
 	const regExp = new RegExp(keyword, 'gi');
-	const restaurants = restaurantList.filter(restaurant => {
-		return restaurant.name.match(regExp) || restaurant.category.match(regExp);
-	});
-	res.render('index', { restaurants: restaurants, keyword: keyword });
+	Restaurant.find({ $or: [{ name: regExp }, { category: regExp }] })
+		.lean()
+		.then(restaurant => {
+			res.render('index', { restaurants: restaurant, keyword });
+		})
+		.catch(error => console.log(error));
 });
 
 app.get('/restaurants/new', (req, res) => {
