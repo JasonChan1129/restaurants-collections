@@ -33,43 +33,48 @@
 <!-- restaurant list -->
 <div class='container mt-5'>
 	<div class='row'>
+		{{#unless restaurants}}
+			<h2 class='text-center'>Sorry, no results match...</h2>
+		{{/unless}}
 		<div class='col-md-10 col-12 mx-auto'>
-			{{#unless restaurants}}
-				<h2 class='text-center'>Sorry, no results match...</h2>
-			{{/unless}}
-			<div class='card-columns'>
+			<div class='row'>
 				{{#each restaurants}}
-					<a href='/restaurants/{{this._id}}' class='text-secondary'>
-						<div class='card mb-3'>
-							<img class='card-img-top' src='{{this.image}}' alt='{{this.name}}' />
-							<div class='card-body p-3'>
-								<h6 class='card-title mb-1'>{{this.name}}</h6>
+					<div class='col-md-4 col-12'>
+						<a href='/restaurants/{{this._id}}' class='text-secondary'>
+							<div class='card mb-3'>
+								<img class='card-img-top' src='{{this.image}}' alt='{{this.name}}' />
+								<div class='card-body p-3'>
+									<h6 class='card-title mb-1'>{{this.name}}</h6>
 
-								<div class='restaurant-category mb-1'>
-									<i class='fas fa-utensils pr-2'></i>
-									{{this.category}}
+									<div class='restaurant-category mb-1'>
+										<i class='fas fa-utensils pr-2'></i>
+										{{this.category}}
+									</div>
+
+									<span class='badge badge-pill badge-danger font-weight-normal'>
+										{{this.rating}}
+										<i class='fas fa-star fa-xs'></i>
+									</span>
+
 								</div>
+								<div class='mb-3 d-flex justify-content-end align-items-center'>
+									<a
+										href='/restaurants/{{this._id}}/edit'
+										class='link-primary mx-2'
+									>Edit</a>
+									<a href='/restaurants/{{this._id}}' class='link-primary mx-2'>Details</a>
+									<form
+										action='/restaurants/{{this._id}}/delete'
+										method='POST'
+										class='my-0 mx-2'
+									>
+										<button type='submit' class='btn btn-danger'>Delete</button>
+									</form>
 
-								<span class='badge badge-pill badge-danger font-weight-normal'>
-									{{this.rating}}
-									<i class='fas fa-star fa-xs'></i>
-								</span>
-
+								</div>
 							</div>
-							<div class='mb-3 d-flex justify-content-end align-items-center'>
-								<a href='/restaurants/{{this._id}}/edit' class='link-primary mx-2'>Edit</a>
-								<a href='/restaurants/{{this._id}}' class='link-primary mx-2'>Details</a>
-								<form
-									action='/restaurants/{{this._id}}/delete'
-									method='POST'
-									class='my-0 mx-2'
-								>
-									<button type='submit' class='btn btn-danger'>Delete</button>
-								</form>
-
-							</div>
-						</div>
-					</a>
+						</a>
+					</div>
 				{{/each}}
 			</div>
 		</div>
