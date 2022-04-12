@@ -2,7 +2,6 @@ const req = require('express/lib/request');
 const mongoose = require('mongoose');
 const Restaurant = require('../restaurant');
 const restaurantList = require('../../restaurant.json').results;
-const restaurant = require('../restaurant');
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });

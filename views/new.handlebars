@@ -1,3 +1,15 @@
+<form class='mt-5 w-75 mx-auto d-flex justify-content-center align-items-center' action='/restaurants/request' method='POST'>
+	<input
+		type='text'
+		id='search-input'
+		class='w-50 p-2'
+		placeholder='輸入餐廳關鍵字...'
+		name="input"
+		required
+	/>
+	<button type='submit' class='btn btn-primary mx-2'>自動填寫</button>
+</form>
+
 <form class='mt-5 w-75 mx-auto' action='/restaurants/new' method='POST'>
 	<div class='mb-3'>
 		<label for='name' class='form-label'>店名</label>
@@ -7,6 +19,9 @@
 			id='name'
 			name='name'
 			placeholder='梅子鰻蒲燒專賣店'
+			{{#if placeDetailsData}}
+			value="{{placeDetailsData.name}}"
+			{{/if}}
 			required
 		/>
 	</div>
@@ -58,6 +73,9 @@
 			id='location'
 			name='location'
 			placeholder='台北市中山區林森北路 107 巷 8 號'
+			{{#if placeDetailsData}}
+			value="{{placeDetailsData.formatted_address}}"
+			{{/if}}
 			required
 		/>
 	</div>
@@ -69,6 +87,9 @@
 			id='phone'
 			name='phone'
 			placeholder='02 2521 2813'
+			{{#if placeDetailsData}}
+			value="{{placeDetailsData.formatted_phone_number}}"
+			{{/if}}
 			required
 		/>
 	</div>
@@ -80,6 +101,9 @@
 			id='google-map'
 			name='googleMap'
 			placeholder='https://goo.gl/maps/cUJEmFSRKyH2'
+			{{#if placeDetailsData}}
+			value="{{placeDetailsData.url}}"
+			{{/if}}
 			required
 		/>
 	</div>
@@ -94,6 +118,9 @@
 			min='0'
 			step='0.1'
 			placeholder='4.3'
+			{{#if placeDetailsData}}
+			value="{{placeDetailsData.rating}}"
+			{{/if}}
 			required
 		/>
 	</div>
@@ -105,7 +132,7 @@
 			name='description'
 			placeholder=' 鰻魚、鰻魚飯、真空鰻魚'
 			required
-		></textarea>
+		>{{#if placeDetailsData}}Visit website at: {{placeDetailsData.website}}{{/if}}</textarea>
 	</div>
 	<button type='submit' class='btn btn-primary'>新增</button>
 </form>
