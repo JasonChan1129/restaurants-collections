@@ -1,14 +1,22 @@
 # My Restaurant Collections
 
-A website built with Node.js and Express that allows users to look up for information of some pre-added restaurants.
+A website built with Node.js and Express that allows users to look up for information of their favourite restaurants.
 
-![project cover](/public/images/readme_cover.png)
+![project cover](/public/images/cover.png)
+![illustration](/public/images/restaurantList.gif)
 
 ## Prerequisites
 
 -  Node.js
+-  Register an account for [MongoDB Altas](https://www.mongodb.com/atlas/database)
+-  Register an account for [Google Maps Platform](https://developers.google.com/maps) (for autofill function in creating new restaurant, skip it if you want)
+-  Enable Maps Javascript API and Places API on [Google Maps Platform](https://developers.google.com/maps)
+
+-  Create two API keys on [Google Maps Platform](https://developers.google.com/maps) (one key will be exposed in main.handlebars (client side) so make sure to set up application restrictions on the platform, another key will be used in app.js (server side) and inserted as environment variable)
 
 ## Installation and execution
+
+#### \* skip step 6 and 7 if you do not wish to enable autofill function in creating new restaurant
 
 1. Clone this project with your terminal
 
@@ -28,10 +36,42 @@ npm install
 npm i nodemon
 ```
 
-4. Start the server
+4. Create a .env file for storing environment variables
+
+5. Copy the connection string from [MongoDB Altas](https://www.mongodb.com/atlas/database) and place it in .env file
+
+```
+MONGODB_URI=mongodb+srv://<account name>:<password>@cluster0.syrbi.mongodb.net/<name of the database>?retryWrites=true&w=majorit
+```
+
+6. Copy an API key from [Google Maps Platform](https://developers.google.com/maps) and place it in .env file
+
+```
+GOOGLE_API_KEY=<API key>
+```
+
+7. Place your API key (the one with application restrictions) in the script tag in main.handlebars
+
+```
+<script src='https://maps.googleapis.com/maps/api/js?key=<API key>&libraries=places&language=en'></script>
+```
+
+8. Run the seed data
+
+```
+npm run seed
+```
+
+9. Start the server
 
 ```
 npm run dev
+```
+
+10. Server runs successfully if the following message is printed.
+
+```
+Server is listening to localhost: 3000
 ```
 
 ## Features
@@ -40,12 +80,23 @@ npm run dev
 
 -  by clicking the restaurant, users are able to check for more details of it
 
--  users can search for restaurants based on their names and categories
+-  users can search for restaurants based on names and categories
+
+-  users can create a new restaurants data
+
+-  users can edit the details of a restaurant
+
+-  users can delete a restaurants data
+
+-  by leveraging the Google Places API, restaurant's details can be autofilled when users want to create a new restaurant data
 
 ## Development tools
 
--  Node.js @ 16.14.2
+-  Bootstrap @ 4.3.1
+-  dotenv @ 16.0.0
 -  Express @ 4.17.3
 -  Express-handlebars @ 3.0.0
--  Bootstrap @ 4.3.1
 -  Font-awesome @ 5.8.1
+-  @googlemaps/google-maps-services-js @ 3.3.12
+-  mongoose @ 5.9.7
+-  Node.js @ 16.14.2
