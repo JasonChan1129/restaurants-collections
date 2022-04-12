@@ -1,4 +1,3 @@
-const req = require('express/lib/request');
 const mongoose = require('mongoose');
 const Restaurant = require('../restaurant');
 const restaurantList = require('../../restaurant.json').results;

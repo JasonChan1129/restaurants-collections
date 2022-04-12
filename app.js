@@ -33,7 +33,6 @@ app.get('/', (req, res) => {
 			res.render('index', { restaurants });
 		})
 		.catch(error => console.log(error));
-	// res.render('index', { restaurants: restaurantList });
 });
 
 // handle search restaurants
@@ -58,15 +57,15 @@ app.post('/restaurants/new', (req, res) => {
 	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
 		req.body;
 	return Restaurant.create({
-		name: name,
-		nameEng: nameEng,
-		category: category,
-		image: image,
-		location: location,
-		phone: phone,
-		googleMap: googleMap,
-		rating: rating,
-		description: description,
+		name,
+		nameEng,
+		category,
+		image,
+		location,
+		phone,
+		googleMap,
+		rating,
+		description,
 	})
 		.then(() => res.redirect('/'))
 		.catch(error => console.log(error));
@@ -79,8 +78,6 @@ app.get('/restaurants/:id', (req, res) => {
 		.lean()
 		.then(restaurant => res.render('show', { restaurant }))
 		.catch(error => console.log(error));
-	// const restaurant = restaurantList.find(restaurant => restaurant.id.toString() === id);
-	// res.render('show', { restaurant: restaurant });
 });
 
 // render edit restaurant page
