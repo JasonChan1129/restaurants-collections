@@ -149,6 +149,7 @@ app.post('/restaurants/request', async (req, res) => {
 		return res.render('new', { placeDetailsData });
 	} catch (err) {
 		console.log(err);
+		return res.render('new');
 	}
 });
 
