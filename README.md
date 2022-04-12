@@ -3,7 +3,8 @@
 A website built with Node.js and Express that allows users to look up for information of their favourite restaurants.
 
 ![project cover](/public/images/cover.png)
-![illustration](/public/images/restaurantList.gif)
+
+![illustration](/public/images/gif1.gif)
 
 ## Prerequisites
 
