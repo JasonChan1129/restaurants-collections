@@ -4,7 +4,7 @@ A website built with Node.js and Express that allows users to look up for inform
 
 ![project cover](/public/images/cover.png)
 
-![illustration](/public/images/gif1.gif)
+![illustration](/public/images/illustration.gif)
 
 ## Prerequisites
 
