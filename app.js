@@ -1,13 +1,15 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const app = express();
-const Restaurant = require('./models/restaurant');
 const mongoose = require('mongoose');
-const port = 3000;
-require('dotenv').config();
+const methodOverride = require('method-override');
 // import Google Maps Client
 const { Client } = require('@googlemaps/google-maps-services-js');
-const client = new Client({});
+const routes = require('./routes');
+require('dotenv').config();
+
+const port = 3000;
+
+const app = express();
 
 // set up view engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -24,104 +26,10 @@ db.once('open', () => console.log('mongoDB connected.'));
 // middleware
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(routes);
 
-// render index page
-app.get('/', (req, res) => {
-	return Restaurant.find()
-		.lean()
-		.then(restaurants => {
-			res.render('index', { restaurants });
-		})
-		.catch(error => console.log(error));
-});
-
-// handle search restaurants
-app.get('/search', (req, res) => {
-	const keyword = req.query.keyword.trim();
-	const regExp = new RegExp(keyword, 'gi');
-	Restaurant.find({ $or: [{ name: regExp }, { category: regExp }] })
-		.lean()
-		.then(restaurant => {
-			res.render('index', { restaurants: restaurant, keyword });
-		})
-		.catch(error => console.log(error));
-});
-
-// render add new restaurant page
-app.get('/restaurants/new', (req, res) => {
-	res.render('new');
-});
-
-// handle add restaurants to database
-app.post('/restaurants', (req, res) => {
-	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
-		req.body;
-	return Restaurant.create({
-		name,
-		nameEng,
-		category,
-		image,
-		location,
-		phone,
-		googleMap,
-		rating,
-		description,
-	})
-		.then(() => res.redirect('/'))
-		.catch(error => console.log(error));
-});
-
-// render specific restaurant's details
-app.get('/restaurants/:id', (req, res) => {
-	const id = req.params.id;
-	return Restaurant.findById(id)
-		.lean()
-		.then(restaurant => res.render('show', { restaurant }))
-		.catch(error => console.log(error));
-});
-
-// render edit restaurant page
-app.get('/restaurants/:id/edit', (req, res) => {
-	const id = req.params.id;
-	return Restaurant.findById(id)
-		.lean()
-		.then(restaurant => {
-			res.render('edit', { restaurant });
-		})
-		.catch(error => console.log(error));
-});
-
-// handle edit restaurant
-app.put('/restaurants/:id', (req, res) => {
-	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
-		req.body;
-	const id = req.params.id;
-	Restaurant.findById(id)
-		.then(restaurant => {
-			restaurant.name = name;
-			restaurant.nameEng = nameEng;
-			restaurant.category = category;
-			restaurant.image = image;
-			restaurant.location = location;
-			restaurant.phone = phone;
-			restaurant.googleMap = googleMap;
-			restaurant.rating = rating;
-			restaurant.description = description;
-			restaurant.save();
-		})
-		.then(() => res.redirect('/'))
-		.catch(error => console.log(error));
-});
-
-// handle delete a restaurant
-app.post('/restaurants/:id/delete', (req, res) => {
-	const id = req.params.id;
-	return Restaurant.findById(id)
-		.then(restaurant => restaurant.remove())
-		.then(() => res.redirect('/'))
-		.catch(error => console.log(error));
-});
-
+const client = new Client({});
 // handle auto-fill restaurant details when adding a new restaurant
 app.post('/restaurants/request', async (req, res) => {
 	const input = req.body.input;
