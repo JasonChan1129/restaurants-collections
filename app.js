@@ -53,7 +53,7 @@ app.get('/restaurants/new', (req, res) => {
 });
 
 // handle add restaurants to database
-app.post('/restaurants/new', (req, res) => {
+app.post('/restaurants', (req, res) => {
 	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
 		req.body;
 	return Restaurant.create({
@@ -92,7 +92,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 });
 
 // handle edit restaurant
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
 	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
 		req.body;
 	const id = req.params.id;
