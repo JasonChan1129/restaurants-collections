@@ -1,11 +1,13 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+
+const routes = require('./routes');
+// connect to mongoDB
+require('./config/mongoose');
+require('dotenv').config();
 // import Google Maps Client
 const { Client } = require('@googlemaps/google-maps-services-js');
-const routes = require('./routes');
-require('dotenv').config();
 
 const port = 3000;
 
@@ -14,14 +16,6 @@ const app = express();
 // set up view engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
-
-// set up mongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-
-db.on('error', () => console.log('mongoDB error.'));
-
-db.once('open', () => console.log('mongoDB connected.'));
 
 // middleware
 app.use(express.static('public'));
