@@ -6,8 +6,10 @@ const router = express.Router();
 
 // render index page
 router.get('/', (req, res) => {
+	const sort = req.query.sort;
 	return Restaurant.find()
 		.lean()
+		.sort(sort)
 		.then(restaurants => {
 			res.render('index', { restaurants });
 		})
@@ -18,8 +20,10 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
 	const keyword = req.query.keyword.trim();
 	const regExp = new RegExp(keyword, 'gi');
-	Restaurant.find({ $or: [{ name: regExp }, { category: regExp }] })
+	const sort = req.query.sort;
+	Restaurant.find({ $or: [{ name: regExp }, { nameENG: regExp }, { category: regExp }] })
 		.lean()
+		.sort(sort)
 		.then(restaurant => {
 			res.render('index', { restaurants: restaurant, keyword });
 		})

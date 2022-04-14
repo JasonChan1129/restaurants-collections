@@ -22,10 +22,29 @@
 					</div>
 				</div>
 			</form>
-			<form action='/restaurants/new'>
-				<button type='submit' class='btn btn-primary'>新增餐廳</button>
-			</form>
-
+			<div class='d-flex justify-content-between'>
+				<form action='/restaurants/new'>
+					<button type='submit' class='btn btn-primary'>新增餐廳</button>
+				</form>
+				<div class='dropdown'>
+					<button
+						class='btn btn-secondary dropdown-toggle'
+						type='button'
+						id='dropdownMenuButton1'
+						data-bs-toggle='dropdown'
+						aria-expanded='false'
+					>
+						Sort
+					</button>
+					<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>
+						<li><a class='dropdown-item' {{#if keyword}}href='/search/?sort=name&keyword={{keyword}}'{{else}}href='/?sort=name'{{/if}}>店名 A -> Z</a></li>
+						<li><a class='dropdown-item' {{#if keyword}}href='/search/?sort=-name&keyword={{keyword}}'{{else}}href='/?sort=-name'{{/if}}>店名 Z -> A</a></li>
+						<li><a class='dropdown-item' {{#if keyword}}href='/search/?sort=-rating&keyword={{keyword}}'{{else}}href='/?sort=-rating'{{/if}}>評分 高 -> 低</a></li>
+						<li><a class='dropdown-item' {{#if keyword}}href='/search/?sort=category&keyword={{keyword}}'{{else}}href='/?sort=category'{{/if}}>類別</a></li>
+						<li><a class='dropdown-item' {{#if keyword}}href='/search/?sort=location&keyword={{keyword}}'{{else}}href='/?sort=location'{{/if}}>地區</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
