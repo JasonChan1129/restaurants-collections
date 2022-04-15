@@ -11,19 +11,8 @@ router.get('/new', (req, res) => {
 
 // handle add restaurants to database
 router.post('/', (req, res) => {
-	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
-		req.body;
-	return Restaurant.create({
-		name,
-		nameEng,
-		category,
-		image,
-		location,
-		phone,
-		googleMap,
-		rating,
-		description,
-	})
+	const body = req.body;
+	return Restaurant.create(body)
 		.then(() => res.redirect('/'))
 		.catch(error => console.log(error));
 });
@@ -50,20 +39,13 @@ router.get('/:id/edit', (req, res) => {
 
 // handle edit restaurant
 router.put('/:id', (req, res) => {
-	const { name, nameEng, category, image, location, phone, googleMap, rating, description } =
-		req.body;
 	const id = req.params.id;
+	const body = req.body;
 	Restaurant.findById(id)
 		.then(restaurant => {
-			restaurant.name = name;
-			restaurant.nameEng = nameEng;
-			restaurant.category = category;
-			restaurant.image = image;
-			restaurant.location = location;
-			restaurant.phone = phone;
-			restaurant.googleMap = googleMap;
-			restaurant.rating = rating;
-			restaurant.description = description;
+			for (let key in body) {
+				restaurant[key] = body[key];
+			}
 			restaurant.save();
 		})
 		.then(() => res.redirect('/'))
