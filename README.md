@@ -42,7 +42,7 @@ npm i nodemon
 5. Copy the connection string from [MongoDB Altas](https://www.mongodb.com/atlas/database) and place it in .env file
 
 ```
-MONGODB_URI=mongodb+srv://<account name>:<password>@cluster0.syrbi.mongodb.net/<name of the database>?retryWrites=true&w=majorit
+MONGODB_URI=<your connection string>
 ```
 
 6. Copy an API key from [Google Maps Platform](https://developers.google.com/maps) and place it in .env file
