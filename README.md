@@ -93,11 +93,12 @@ Server is listening to localhost: 3000
 
 ## Development tools
 
--  Bootstrap @ 4.3.1
+-  bootstrap @ 4.3.1
 -  dotenv @ 16.0.0
--  Express @ 4.17.3
--  Express-handlebars @ 3.0.0
--  Font-awesome @ 5.8.1
+-  express @ 4.17.3
+-  express-handlebars @ 3.0.0
+-  font-awesome @ 5.8.1
 -  @googlemaps/google-maps-services-js @ 3.3.12
+-  method-override @ 3.0.0
 -  mongoose @ 5.9.7
--  Node.js @ 16.14.2
+-  node.js @ 16.14.2
