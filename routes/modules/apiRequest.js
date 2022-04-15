@@ -7,13 +7,13 @@ const client = new Client({});
 require('dotenv').config();
 
 // handle auto-fill restaurant details when adding a new restaurant
-router.post('/google', async (req, res) => {
-	const input = req.body.input;
+router.get('/infos', async (req, res) => {
+	const restaurant = req.query.input;
 	try {
 		// to get a specific place_id from Google Places API
 		const findPlaceRes = await client.findPlaceFromText({
 			params: {
-				input: input,
+				input: restaurant,
 				inputtype: 'textquery',
 				language: 'zh-TW',
 				key: process.env.GOOGLE_API_KEY,

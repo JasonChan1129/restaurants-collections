@@ -7,6 +7,6 @@ const apiRequest = require('./modules/apiRequest');
 
 router.use('/', home);
 router.use('/restaurants', restaurants);
-router.use('/request', apiRequest);
+router.use('/google', apiRequest);
 
 module.exports = router;
